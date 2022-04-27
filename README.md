@@ -1,5 +1,5 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=alert_status)](https://sonarcloud.io/dashboard?id=edazpotato_Micro)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=security_rating)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=ncloc)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=bugs)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=sqale_index)](https://sonarcloud.io/dashboard?id=edazpotato_Micro) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=edazpotato_Micro&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=edazpotato_Micro)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=alert_status)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=security_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=ncloc)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=bugs)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_index)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
 
 # Micro
 
@@ -18,7 +18,7 @@ You can have a look at the Figma designs [here](https://www.figma.com/file/JElZB
 
 ## Future Plans
 
--   [ ] [Initial Release](https://github.com/edazpotato/Micro/projects/1)
+-   [ ] [Initial Release](https://github.com/KeinerCX/Micro/projects/1)
 -   [ ] Emoji support
 -   [ ] Supporter System
 -   [ ] Image Support & Custom Emojis for Supporters
@@ -29,7 +29,7 @@ You can have a look at the Figma designs [here](https://www.figma.com/file/JElZB
 
 ### Project Setup
 
-To contribute you can just clone the repository with `git clone https://github.com/edazpotato/Micro.git` to clone the repository over HTTPS
+To contribute you can just clone the repository with `git clone https://github.com/KeinerCX/Micro.git` to clone the repository over HTTPS
 
 However, be sure to look at the README files in the [frontend](./frontend/) and [backend](./backend/) folders depending on what you're contributing to.
 
@@ -61,7 +61,7 @@ Example:
 
 ### Documentation
 
-Most of the documentation can be found on the [wiki](https://github.com/edazpotato/Micro/wiki).
+Most of the documentation can be found on the [wiki](https://github.com/KeinerCX/Micro/wiki).
 
 #### Branding
 
