@@ -10,6 +10,14 @@ datasource db {
   url      = env("MONGODB_URI")
 }
 
+model AccessCode {
+  @@map("accesscodes")
+
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+
+  code   String  @unique
+}
+
 model User {
   @@map("users")
 

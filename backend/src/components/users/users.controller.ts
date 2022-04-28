@@ -1,14 +1,15 @@
-import { Body, Controller, Get, Header, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { RealIP } from 'nestjs-real-ip';
 import * as argon2 from 'argon2'
 import Errors, { HandleServiceError } from 'src/utility/error';
-import { EmailRegex, PasswordRegex, UsernameRegex } from 'src/utility/regex';
+import { AccessCodeRegex, EmailRegex, PasswordRegex, UsernameRegex } from 'src/utility/regex';
 import { CreateUserDTO, LoginDTO } from './users.dtos';
 import { INewUser, IUserAuth, IUserSession } from './users.interfaces';
 import { UsersService } from './user.service';
 import { Auth } from 'src/utility/routeParams';
 import { PrismaService } from '../prisma.service';
+import { GenerateAccessCode } from 'src/utility/general';
 
 @Controller('users')
 export class UsersController {
@@ -17,16 +18,52 @@ export class UsersController {
     private prisma: PrismaService,
   ) {}
 
+  @Post('accesscodes')
+  @Header('content-type', 'application/json')
+  async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin' }) auth: IUserAuth) {
+    if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
+    const formattedAccessCode = body.access_code ? body.access_code.toLowerCase() : await GenerateAccessCode();
+
+    if (
+      body.access_code &&
+      (
+        !formattedAccessCode.match(AccessCodeRegex) ||
+        (await this.prisma.accessCode.findUnique({ where: { code: formattedAccessCode } }))
+      )
+    ) throw Errors.BadRequest('access_code_invalid');
+
+    try {
+      return await this.prisma.accessCode.create({ data: { code: formattedAccessCode } })
+    } catch (err: any) { throw HandleServiceError(err) }
+  }
+
+  @Delete('accesscodes')
+  @Header('content-type', 'application/json')
+  async deleteAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin' }) auth: IUserAuth) {
+    if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
+    if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
+    if (!body.access_code) throw Errors.BadRequest('access_code_missing');
+    const formattedAccessCode = body.access_code.toLowerCase();
+    if (!formattedAccessCode.match(AccessCodeRegex) && !(await this.prisma.accessCode.findUnique({ where: { code: formattedAccessCode } }))) throw Errors.BadRequest('access_code_invalid');
+
+    try {
+      await this.prisma.accessCode.delete({ where: { code: body.access_code } })
+    } catch (err: any) { throw HandleServiceError(err) }
+  }
+
   @Post('register')
   @Header('content-type', 'application/json')
   async createUser(@Req() req: Request, @Body() body: CreateUserDTO): Promise<INewUser> {
     if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
+    if (!body.access_code || !body.access_code.match(AccessCodeRegex) || !(await this.prisma.accessCode.findUnique({ where: { code: body.access_code } }))) throw Errors.BadRequest('access_code_invalid');
     if (!body.username || !body.username.match(UsernameRegex)) throw Errors.BadRequest('username_invalid');
     if (!body.email || !body.email.match(EmailRegex)) throw Errors.BadRequest('email_invalid');
     if (!body.password || !body.password.match(PasswordRegex)) throw Errors.BadRequest('password_invalid');
 
     try {
-      return await this.userService.createUser(body.username, body.email, body.password);
+      const user =  await this.userService.createUser(body.username, body.email, body.password);
+      await this.prisma.accessCode.delete({ where: { code: body.access_code } })
+      return user;
     } catch (err: any) { throw HandleServiceError(err) }
   }
 
@@ -54,7 +91,7 @@ export class UsersController {
   }
 
   @Get('logout')
-  async logout(@Req() req: Request, @Body() body: LoginDTO, @Auth([ 'user' ]) auth: IUserAuth) {
+  async logout(@Req() req: Request, @Body() body: LoginDTO, @Auth({ user: 'user' }) auth: IUserAuth) {
     console.log(auth);
 
     /*if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');

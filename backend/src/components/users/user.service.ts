@@ -21,7 +21,7 @@ export class UsersService {
     });
   }
 
-  async createUser(username: string, email: string, password: string): Promise<INewUser> {
+  async createUser(username: string, email: string, password: string, flags?: string[]): Promise<INewUser> {
     const formattedEmail = email.toLowerCase();
     const formattedUsername = username.toLowerCase();
 
@@ -35,6 +35,7 @@ export class UsersService {
       data: {
         username: formattedUsername,
         email: formattedEmail,
+        flags: ["user"] || flags,
         password: await argon2.hash(password, { type: argon2.argon2id }),
         id: new Snowflake({ custom_epoch: CustomEpoch }).getUniqueID().toString() as string,
         joined: new Date()
@@ -45,6 +46,7 @@ export class UsersService {
       username: user.username,
       email: user.email,
       displayname: user.displayname,
+      flags: user.flags,
       id: user.id,
       joined: user.joined
     }

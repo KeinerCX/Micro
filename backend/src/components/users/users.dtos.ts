@@ -2,6 +2,7 @@ export class CreateUserDTO {
   username: string
   email: string
   password: string
+  access_code: string
 }
 
 export class LoginDTO {

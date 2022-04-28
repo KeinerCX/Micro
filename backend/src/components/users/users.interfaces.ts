@@ -2,6 +2,7 @@ export interface INewUser {
   username: string
   displayname: string | undefined
   email: string
+  flags: string[]
   id: string
   joined: Date
 }

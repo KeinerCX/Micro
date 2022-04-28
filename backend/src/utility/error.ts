@@ -33,8 +33,7 @@ namespace Errors {
     return new HttpException({ status: HttpStatus.UNSUPPORTED_MEDIA_TYPE, id, message }, HttpStatus.UNSUPPORTED_MEDIA_TYPE)
   }
 
-  export function InternalServerError (id: string, message?: string) {
-    console.error({id, message})
+  export function InternalServerError () {
     return new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, id: 'internal_server_error' }, HttpStatus.INTERNAL_SERVER_ERROR)
   }
 }
@@ -44,5 +43,8 @@ export default Errors;
 export function HandleServiceError (error: any) {
   if (error instanceof ServiceError) {
     return error.handle();
-  } else { Errors.InternalServerError(error.id, error.message) }
+  } else {
+    console.error(error.message);
+    return Errors.InternalServerError();
+  }
 }
