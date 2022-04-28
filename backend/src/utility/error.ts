@@ -5,10 +5,14 @@ export class ServiceError {
   readonly id: string
   readonly message: string | undefined
 
-  constructor (status: number, id: string, message?: string) {
+  constructor(status: number, id: string, message?: string) {
     this.status = status;
     this.id = id;
     this.message = message;
+  }
+
+  handle () {
+    return new HttpException({ status: this.status, id: this.id, message: this.message }, this.status)
   }
 }
 
@@ -28,6 +32,17 @@ namespace Errors {
   export function UnsupportedMedia (id: string, message?: string) {
     return new HttpException({ status: HttpStatus.UNSUPPORTED_MEDIA_TYPE, id, message }, HttpStatus.UNSUPPORTED_MEDIA_TYPE)
   }
+
+  export function InternalServerError (id: string, message?: string) {
+    console.error({id, message})
+    return new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, id: 'internal_server_error' }, HttpStatus.INTERNAL_SERVER_ERROR)
+  }
 }
 
 export default Errors;
+
+export function HandleServiceError (error: any) {
+  if (error instanceof ServiceError) {
+    return error.handle();
+  } else { Errors.InternalServerError(error.id, error.message) }
+}
