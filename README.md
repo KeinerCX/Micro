@@ -16,6 +16,9 @@ but we welcome contributions from anyone!
 
 You can have a look at the Figma designs [here](https://www.figma.com/file/JElZBj1O6KFYTBAfu4zx75/Micro?node-id=0%3A1).
 
+## Old Repo
+Looking for the old Micro repo? Find it [here](https://github.com/edazpotato/Micro).
+
 ## Future Plans
 
 -   [ ] [Initial Release](https://github.com/KeinerCX/Micro/projects/1)
