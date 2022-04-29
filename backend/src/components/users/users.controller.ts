@@ -20,8 +20,9 @@ export class UsersController {
 
   @Post('accesscodes')
   @Header('content-type', 'application/json')
-  async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin' }) auth: IUserAuth) {
-    if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
+  async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin', throw: ['flags', 'token'] }) auth: IUserAuth) {
+    //if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
+    console.log(auth);
     const formattedAccessCode = body.access_code ? body.access_code.toLowerCase() : await GenerateAccessCode();
 
     if (

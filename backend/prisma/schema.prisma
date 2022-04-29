@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedIndexes"]
 }
 
 datasource db {
@@ -12,6 +13,7 @@ datasource db {
 
 model AccessCode {
   @@map("accesscodes")
+  @@index([id, code])
 
   id     String  @id @default(auto()) @map("_id") @db.ObjectId
 
@@ -25,24 +27,33 @@ model User {
 
   username    String   @unique
 
+  @@index([displayname])
   displayname String?
 
+  @@index([flags])
   flags       String[]
 
   email       String   @unique
 
+  @@index([password])
   password    String?
 
+  @@index([avatar])
   avatar      String?
 
+  @@index([posts])
   posts       String[]
 
+  @@index([joined])
   joined      DateTime
 
+  @@index([sessions])
   sessions    String[]
 }
 
 model Post {
+  @@index([id, author, body, images, flags, replies, posted])
+
   id      String  @map("_id") @id
 
   author  String
