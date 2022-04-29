@@ -52,6 +52,29 @@ export class UsersService {
     }
   }
 
+  /*
+  async deleteUser(id: string): Promise<INewUser> {
+    const user = await this.prisma.user.create({
+      data: {
+        username: formattedUsername,
+        email: formattedEmail,
+        flags: ["user"] || flags,
+        password: await argon2.hash(password, { type: argon2.argon2id }),
+        id: new Snowflake({ custom_epoch: CustomEpoch }).getUniqueID().toString() as string,
+        joined: new Date()
+      }
+    })
+
+    return {
+      username: user.username,
+      email: user.email,
+      displayname: user.displayname,
+      flags: user.flags,
+      id: user.id,
+      joined: user.joined
+    }
+  }*/
+
   async createUserSession(
     user_id: string, 
     client_ip: string, 

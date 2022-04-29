@@ -21,8 +21,6 @@ export class UsersController {
   @Post('accesscodes')
   @Header('content-type', 'application/json')
   async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin', throw: ['flags', 'token'] }) auth: IUserAuth) {
-    //if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
-    console.log(auth);
     const formattedAccessCode = body.access_code ? body.access_code.toLowerCase() : await GenerateAccessCode();
 
     if (
@@ -40,8 +38,7 @@ export class UsersController {
 
   @Delete('accesscodes')
   @Header('content-type', 'application/json')
-  async deleteAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin' }) auth: IUserAuth) {
-    if (!auth.verified_flags) throw Errors.Unauthorized('requires_admin_permission')
+  async deleteAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin', throw: 'flags' }) auth: IUserAuth) {
     if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
     if (!body.access_code) throw Errors.BadRequest('access_code_missing');
     const formattedAccessCode = body.access_code.toLowerCase();
@@ -91,18 +88,15 @@ export class UsersController {
     } catch (err: any) { throw HandleServiceError(err) }
   }
 
+  /* TO-DO: Finish Logout
   @Get('logout')
-  async logout(@Req() req: Request, @Body() body: LoginDTO, @Auth({ user: 'user' }) auth: IUserAuth) {
-    console.log(auth);
-
-    /*if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
-    if (!body.login_id || (!body.login_id.match(UsernameRegex) && !body.login_id.match(EmailRegex))) throw Errors.BadRequest('login_id_invalid');
-    if (!body.password || !body.password.match(PasswordRegex)) throw Errors.BadRequest('password_invalid');
+  async logout(@Req() req: Request, @Body() body: LoginDTO, @Auth({ user: 'user', throw: 'flags' }) auth: IUserAuth) {
+    if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
 
     try {
       const formattedLoginID = body.login_id.toLowerCase();
 
-      const user = await this.UserModel.findOne({ $or: [
+      const user = await this.prisma.user.findUnique({ $or: [
         { email: formattedLoginID },
         { username: formattedLoginID }
       ] }).exec();
@@ -111,7 +105,7 @@ export class UsersController {
       const auth = await argon2.verify(user.password, body.password, { type: argon2.argon2id })
       if (!auth) throw Errors.Unauthorized('password_invalid');
 
-      return await this.userService.createUserSession(user.id, ip, body.remember_session);
-    } catch (err: any) { throw HandleServiceError(err) }*/
-  }
+      return await this.userService.deleteUser(user.id);
+    } catch (err: any) { throw HandleServiceError(err) }
+  }*/
 }
