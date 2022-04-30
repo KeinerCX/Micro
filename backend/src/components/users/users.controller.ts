@@ -5,9 +5,9 @@ import * as argon2 from 'argon2'
 import Errors, { HandleServiceError } from 'src/utility/error';
 import { AccessCodeRegex, EmailRegex, PasswordRegex, UsernameRegex } from 'src/utility/regex';
 import { CreateUserDTO, LoginDTO } from './users.dtos';
-import { INewUser, IUserAuth, IUserSession } from './users.interfaces';
+import { INewUser, IUserSession } from './users.interfaces';
 import { UsersService } from './user.service';
-import { Auth } from 'src/utility/routeParams';
+import { Auth } from 'src/decorators/authorization';
 import { PrismaService } from '../prisma.service';
 import { GenerateAccessCode } from 'src/utility/general';
 
@@ -19,8 +19,9 @@ export class UsersController {
   ) {}
 
   @Post('accesscodes')
+  @Auth({ user: 'admin', throw: ['flags', 'token'] })
   @Header('content-type', 'application/json')
-  async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin', throw: ['flags', 'token'] }) auth: IUserAuth) {
+  async createAccessCode(@Req() req: Request, @Body() body: { access_code: string }) {
     const formattedAccessCode = body.access_code ? body.access_code.toLowerCase() : await GenerateAccessCode();
 
     if (
@@ -37,8 +38,9 @@ export class UsersController {
   }
 
   @Delete('accesscodes')
+  @Auth({ user: 'admin', throw: 'flags' })
   @Header('content-type', 'application/json')
-  async deleteAccessCode(@Req() req: Request, @Body() body: { access_code: string }, @Auth({ user: 'admin', throw: 'flags' }) auth: IUserAuth) {
+  async deleteAccessCode(@Req() req: Request, @Body() body: { access_code: string }) {
     if (req.headers['content-type'] !== 'application/json') throw Errors.UnsupportedMedia('invalid_content_type');
     if (!body.access_code) throw Errors.BadRequest('access_code_missing');
     const formattedAccessCode = body.access_code.toLowerCase();
