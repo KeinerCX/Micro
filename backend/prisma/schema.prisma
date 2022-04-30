@@ -7,14 +7,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("MONGODB_URI")
 }
 
 model AccessCode {
   @@map("accesscodes")
-
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
 
   code   String  @unique
 }
@@ -22,38 +20,31 @@ model AccessCode {
 model User {
   @@map("users")
 
-  id          String   @map("_id") @id
+  id          String   @id
 
   username    String   @unique
 
-  @@index([displayname])
   displayname String?
 
-  @@index([flags])
   flags       String[]
 
   email       String   @unique
 
-  @@index([password])
   password    String?
 
-  @@index([avatar])
   avatar      String?
 
-  @@index([posts])
   posts       String[]
 
-  @@index([joined])
   joined      DateTime
 
-  @@index([sessions])
   sessions    String[]
 }
 
 model Post {
-  @@index([author, body, images, flags, replies, posted])
+  @@map("posts")
 
-  id      String  @map("_id") @id
+  id      String  @id
 
   author  String
 

@@ -13,6 +13,7 @@ export class AuthIntercepter implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
     const method = context.getHandler();
     const data: IAuthData = Reflect.getMetadata('auth', method);
+    if (!data) return next.handle();
 
     const prisma = new PrismaService();
     const throwFlags: ThrowCon[] = data.throw ? (typeof data.throw === 'string' ? [data.throw] : data.throw) : [];
