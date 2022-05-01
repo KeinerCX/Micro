@@ -1,3 +1,4 @@
+![Micro Banner](assets/MicroBanner.png)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=alert_status)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=security_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=ncloc)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=bugs)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_index)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
 
@@ -7,26 +8,28 @@ Micro is being remade!
 
 The core team currently consists of:
 
--   [Modded](https://github.com/TheModdedChicken)
--   [Minota](https://github.com/xMinota)
--   [Edaz](https://github.com/edazpotato)
--   [Levi](https://github.com/lerichardson)
+- [Modded](https://github.com/TheModdedChicken)
+- [Minota](https://github.com/xMinota)
+- [Edaz](https://github.com/edazpotato)
+- [Levi](https://github.com/lerichardson)
+- [Ashton](https://github.com/ash-quinn)
 
 but we welcome contributions from anyone!
 
 You can have a look at the Figma designs [here](https://www.figma.com/file/JElZBj1O6KFYTBAfu4zx75/Micro?node-id=0%3A1).
 
 ## Old Repo
+
 Looking for the old Micro repo? Find it [here](https://github.com/edazpotato/Micro).
 
 ## Future Plans
 
--   [ ] [Initial Release](https://github.com/KeinerCX/Micro/projects/1)
--   [ ] Emoji support
--   [ ] Supporter System
--   [ ] Image Support & Custom Emojis for Supporters
--   [ ] Friend System
--   [ ] Developer Portal
+- [ ] [Initial Release](https://github.com/KeinerCX/Micro/projects/1)
+- [ ] Emoji support
+- [ ] Supporter System
+- [ ] Image Support & Custom Emojis for Supporters
+- [ ] Friend System
+- [ ] Developer Portal
 
 ## Contributing
 
